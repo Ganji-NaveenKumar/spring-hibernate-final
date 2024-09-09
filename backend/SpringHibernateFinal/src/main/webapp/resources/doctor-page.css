@@ -1,0 +1,103 @@
+body {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  margin: 0;
+}
+
+.sidebar {
+  width: auto;
+  background-color: #f0f0f0;
+  padding: 20px;
+}
+
+.content {
+  width: 80%;
+  padding: 20px;
+}
+
+.sidebar .nav-item {
+width:auto;
+display:block;
+  background-color: #f0f0f0;
+  margin: 10px 0;
+  padding: 0px 80px 5px 5px;
+  transition: background-color 0.3s ease;
+  margin:25px 0px;
+}
+
+.sidebar .nav-item a {
+  color: #0056b3;
+  width:100%;
+  text-decoration: none;
+  font-size: 18px;
+  display: block;
+
+}
+.sidebar .nav-item:hover {
+  background-color: skyblue;
+}
+
+.sidebar .nav-item:hover a {
+  color: #0056b3;
+}
+
+.doctor-div{
+    display: flex;
+    flex-direction:column;
+    align-items:center;
+    height: 100vh; /* Full viewport height */
+    margin: 0;
+}
+.doctor-table {
+    width: 80%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+}
+
+.doctor-table th, .doctor-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.doctor-table th {
+    background-color: #f4f4f6;
+    font-weight: bold;
+}
+
+.doctor-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.doctor-table tr:hover {
+    background-color: #f1f1f1;
+}
+.outlined-button {
+    border: 2px solid #000;
+    border-radius:50px;
+    color:brown;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.outlined-button:hover {
+    cursor:cell;
+}
+
+.delete-icon i {
+    color: black;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.delete-icon i:hover {
+    color: #555;
+}
+.error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}

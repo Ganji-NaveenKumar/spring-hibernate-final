@@ -3,19 +3,22 @@ package Service;
 import Naveen.DAO.DAOPatient;
 import Naveen.entity.Patient;
 import Naveen.service.PatientServiceClass;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class PatientServiceClassTest {
 
     @InjectMocks
@@ -24,13 +27,13 @@ public class PatientServiceClassTest {
     @Mock
     private DAOPatient daoPatient;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
+    @Before
+    public void setUp() {
+
     }
 
     @Test
-    void testGetPatients() {
+    public void testGetPatients() {
         List<Patient> mockPatients = new ArrayList<>();
         mockPatients.add(new Patient());
         when(daoPatient.getPatients()).thenReturn(mockPatients);
@@ -43,7 +46,7 @@ public class PatientServiceClassTest {
     }
 
     @Test
-    void testGetDoctorPatients() {
+    public void testGetDoctorPatients() {
         List<Patient> mockPatients = new ArrayList<>();
         mockPatients.add(new Patient());
         when(daoPatient.getDoctorPatients(anyInt())).thenReturn(mockPatients);
@@ -56,7 +59,7 @@ public class PatientServiceClassTest {
     }
 
     @Test
-    void testGetPatient() {
+    public void testGetPatient() {
         Patient mockPatient = new Patient();
         when(daoPatient.getPatient(anyInt())).thenReturn(mockPatient);
 
@@ -67,7 +70,7 @@ public class PatientServiceClassTest {
     }
 
     @Test
-    void testSavePatient() {
+    public void testSavePatient() {
         Patient patient = new Patient();
         doNothing().when(daoPatient).savePatient(patient);
 
@@ -77,7 +80,7 @@ public class PatientServiceClassTest {
     }
 
     @Test
-    void testDeletePatient() {
+     public void testDeletePatient() {
         doNothing().when(daoPatient).deletePatient(anyInt());
 
         patientService.deletePatient(1);

@@ -31,7 +31,7 @@
     <h3>The Patients Available are</h3>
      <c:choose>
     <c:when test="${empty patients}">
-        <p>No doctors found.</p>
+        <p>No patient found.</p>
     </c:when>
 <c:otherwise>
    <div class=:doctor-div>
@@ -42,7 +42,7 @@
                       <th>First Name</th>
                       <th>Last Name</th>
                       <th>Email</th>
-                      <th>Details</th>
+                      <th>Problem-Facing</th>
                       <th>Contact</th>
                       <th>Payments</th>
                       <th>Update</th>
@@ -68,7 +68,7 @@
                           <td>${patient.email}</td>
                           <td>${patient.details}</td>
                           <td>${patient.contact}</td>
-                          <td><a href="${getPayments}">view payments</a></td>
+                          <td><a href="${getPayments}">View Payments</a></td>
                           <td><a href="${updateLink}" >Update</a></td>
                           <td>
                               <a href="${deleteLink}"

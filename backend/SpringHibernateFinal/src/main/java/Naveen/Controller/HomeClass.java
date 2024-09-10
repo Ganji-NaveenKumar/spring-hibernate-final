@@ -104,16 +104,11 @@ public class HomeClass {
 
     @PostMapping("/savePatient")
     public String addPatient(@Valid @ModelAttribute("patient") Patient patient, BindingResult result,Model model){
-        Doctor doctor = null;
-        if (patient.getDoctor() != null) {
-            int intId = patient.getDoctor().getId();
-            doctor = doctorServices.getDoctor(intId);
-            if (doctor == null) {
-                result.rejectValue("doctor", "error.doctor", "Doctor not found");
-                return "showPatientForm";
-            }
+        if (patient.getDoctor() == null || result.hasErrors()) {
+            return "showPatientForm";
         }
-
+        int intId = patient.getDoctor().getId();
+        Doctor doctor = doctorServices.getDoctor(intId);
         patient.setDoctor(doctor);
         patientServices.savePatient(patient);
         return  "redirect:/patients";

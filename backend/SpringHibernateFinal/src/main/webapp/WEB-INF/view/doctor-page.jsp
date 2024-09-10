@@ -66,7 +66,7 @@
                           <td>${doctor.lastName}</td>
                           <td>${doctor.email}</td>
                           <td>${doctor.specialist}</td>
-                          <td><a href="${getPatient}">view patients</a></td>
+                          <td><a href="${getPatient}">View Patients</a></td>
                           <td><a href="${updateLink}" >Update</a></td>
                           <td>
                               <a href="${deleteLink}"

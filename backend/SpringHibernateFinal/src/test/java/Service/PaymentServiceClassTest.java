@@ -3,19 +3,24 @@ package Service;
 import Naveen.DAO.DAOPayment;
 import Naveen.entity.Payment;
 import Naveen.service.PaymentServiceClass;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class PaymentServiceClassTest {
 
     @InjectMocks
@@ -24,13 +29,13 @@ public class PaymentServiceClassTest {
     @Mock
     private DAOPayment daoPayment;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
+    @Before
+    public void setUp() {
+
     }
 
     @Test
-    void testGetPayments() {
+    public void testGetPayments() {
         List<Payment> mockPayments = new ArrayList<>();
         mockPayments.add(new Payment());
         when(daoPayment.getPayments()).thenReturn(mockPayments);
@@ -42,7 +47,7 @@ public class PaymentServiceClassTest {
     }
 
     @Test
-    void testGetPaymentById() {
+    public void testGetPaymentById() {
         List<Payment> mockPayments = new ArrayList<>();
         mockPayments.add(new Payment());
         when(daoPayment.getPaymentById(anyInt())).thenReturn(mockPayments);
@@ -55,7 +60,7 @@ public class PaymentServiceClassTest {
     }
 
     @Test
-    void testSavePayment() {
+    public void testSavePayment() {
         Payment payment = new Payment();
         doNothing().when(daoPayment).savePayment(payment);
 
@@ -65,7 +70,7 @@ public class PaymentServiceClassTest {
     }
 
     @Test
-    void testGetPayment() {
+     public void testGetPayment() {
         Payment mockPayment = new Payment();
         when(daoPayment.getPayment(anyInt())).thenReturn(mockPayment);
 
@@ -76,7 +81,7 @@ public class PaymentServiceClassTest {
     }
 
     @Test
-    void testDeletePayment() {
+    public void testDeletePayment() {
         doNothing().when(daoPayment).deletePayment(anyInt());
 
         paymentService.deletePayment(1);

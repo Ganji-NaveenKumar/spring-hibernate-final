@@ -7,20 +7,25 @@ import Naveen.entity.Payment;
 import Naveen.service.DoctorServices;
 import Naveen.service.PatientServices;
 import Naveen.service.PaymentServices;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class HomeClassTest {
 
     @Mock
@@ -41,9 +46,9 @@ public class HomeClassTest {
     @InjectMocks
     private HomeClass homeClass;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
+    @Before
+    public void setUp() {
+
     }
 
     @Test
@@ -173,17 +178,24 @@ public class HomeClassTest {
     }
 
     @Test
-    public void testAddPatient() {
+    public void testAddPatient_Success() {
         Patient patient = new Patient();
         Doctor doctor = new Doctor();
-        when(bindingResult.hasErrors()).thenReturn(false);
-        when(doctorServices.getDoctor(anyInt())).thenReturn(doctor);
+        doctor.setId(1);
+        patient.setDoctor(doctor);
 
-        String result = homeClass.addPatient(patient, bindingResult, model);
+        when(bindingResult.hasErrors()).thenReturn(false);
+
+        when(doctorServices.getDoctor(1)).thenReturn(doctor);
+
+        String view =homeClass.addPatient(patient, bindingResult, model);
+
 
         verify(patientServices).savePatient(patient);
-        assertEquals("redirect:/patients", result);
+
+        assertEquals("redirect:/patients", view);
     }
+
 
     @Test
     public void testAddSpecificPatient() {

@@ -29,7 +29,7 @@
     <h3>The Payments Available are</h3>
      <c:choose>
         <c:when test="${empty payments}">
-            <p>No doctors found.</p>
+            <p>No Payments found.</p>
         </c:when>
    <c:otherwise>
     <div class="doctor-div">
@@ -73,12 +73,13 @@
 
 
     </div>
+    <input type="button"
+           onclick="window.location.href='${pageContext.request.contextPath}/showPaymentForm'; return false;"
+           class="outlined-button"
+           value="Add Payment" />
      </c:otherwise>
     </c:choose>
-     <input type="button"
-       onclick="window.location.href='${pageContext.request.contextPath}/showPaymentForm'; return false;"
-       class="outlined-button"
-       value="Add Payment" />
+
 </div>
 </body>
 </html>

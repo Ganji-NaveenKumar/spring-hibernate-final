@@ -3,19 +3,23 @@ package Service;
 import Naveen.DAO.DAODoctor;
 import Naveen.entity.Doctor;
 import Naveen.service.DoctorServiceClass;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class DoctorServiceClassTest {
 
     @InjectMocks
@@ -24,26 +28,27 @@ public class DoctorServiceClassTest {
     @Mock
     private DAODoctor daoDoctor;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
+    @Before
+    public void setUp() {
+
     }
 
     @Test
-    void testGetDoctors() {
+   public void testGetDoctors() {
         List<Doctor> mockDoctors = new ArrayList<>();
+        mockDoctors.add(new Doctor());
         mockDoctors.add(new Doctor());
         when(daoDoctor.getDoctors()).thenReturn(mockDoctors);
 
         List<Doctor> doctors = doctorService.getDoctors();
 
         assertNotNull(doctors);
-        assertEquals(1, doctors.size());
+        assertEquals(2, doctors.size());
         verify(daoDoctor, times(1)).getDoctors();
     }
 
     @Test
-    void testSaveDoctor() {
+    public void testSaveDoctor() {
         Doctor doctor = new Doctor();
         doNothing().when(daoDoctor).saveDoctor(doctor);
 
@@ -53,7 +58,7 @@ public class DoctorServiceClassTest {
     }
 
     @Test
-    void testGetDoctor() {
+    public void testGetDoctor() {
         Doctor mockDoctor = new Doctor();
         when(daoDoctor.getDoctor(anyInt())).thenReturn(mockDoctor);
 
@@ -64,7 +69,7 @@ public class DoctorServiceClassTest {
     }
 
     @Test
-    void testDeleteDoctor() {
+    public void testDeleteDoctor() {
         doNothing().when(daoDoctor).deleteDoctor(anyInt());
 
         doctorService.deleteDoctor(1);

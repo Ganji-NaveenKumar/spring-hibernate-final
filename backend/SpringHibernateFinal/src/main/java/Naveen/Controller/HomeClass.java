@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.print.Doc;
 import javax.validation.Valid;
 import  java.util.*;
 
@@ -104,9 +103,6 @@ public class HomeClass {
 
     @PostMapping("/savePatient")
     public String addPatient(@Valid @ModelAttribute("patient") Patient patient, BindingResult result,Model model){
-        if (patient.getDoctor() == null || result.hasErrors()) {
-            return "showPatientForm";
-        }
         int intId = patient.getDoctor().getId();
         Doctor doctor = doctorServices.getDoctor(intId);
         patient.setDoctor(doctor);
@@ -173,10 +169,7 @@ public class HomeClass {
     }
 
     @PostMapping("/updatePayment")
-    public  String updatePayment(@Valid @ModelAttribute("payment") Payment payment, BindingResult result){
-        if(result.hasErrors()){
-            return "showPaymentUpdateForm";
-        }
+    public  String updatePaymentPost(@Valid @ModelAttribute("payment") Payment payment, BindingResult result){
         paymentServices.savePayment(payment);
         return "redirect:/payments";
     }

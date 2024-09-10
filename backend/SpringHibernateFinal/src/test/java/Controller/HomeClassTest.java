@@ -12,10 +12,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -45,7 +50,7 @@ public class HomeClassTest {
 
     @Before
     public void setUp() {
-
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test
@@ -180,16 +185,10 @@ public class HomeClassTest {
         Doctor doctor = new Doctor();
         doctor.setId(1);
         patient.setDoctor(doctor);
-
         when(bindingResult.hasErrors()).thenReturn(false);
-
         when(doctorServices.getDoctor(1)).thenReturn(doctor);
-
         String view =homeClass.addPatient(patient, bindingResult, model);
-
-
         verify(patientServices).savePatient(patient);
-
         assertEquals("redirect:/patients", view);
     }
 
@@ -334,4 +333,53 @@ public class HomeClassTest {
 
         assertEquals("specific-payment-page",result);
     }
+
+    @Test
+    public void testUpdatePayment_Success() {
+        Payment payment = new Payment();
+
+        when(bindingResult.hasErrors()).thenReturn(false);
+
+        String view = homeClass.updatePaymentPost(payment, bindingResult);
+
+        verify(paymentServices).savePayment(payment);
+        assertEquals("redirect:/payments", view);
+    }
+
+    @Test
+    public void testUpdatePayment_Failure() {
+        Payment payment = new Payment();
+
+        when(bindingResult.hasErrors()).thenReturn(true);
+
+        String view = homeClass.updatePaymentPost(payment, bindingResult);
+
+        verify(paymentServices, never()).savePayment(payment);
+        assertEquals("showPaymentUpdateForm", view);
+    }
+
+    @Test
+    public void testGetContact() {
+        String view = homeClass.getContact();
+
+        assertEquals("contact", view);
+    }
+
+    @Test
+    public void testGetPatient() {
+        int patientId = 1;
+        Patient patient = new Patient();
+        List<Doctor> doctors = new ArrayList<>();
+
+        when(patientServices.getPatient(patientId)).thenReturn(patient);
+        when(doctorServices.getDoctors()).thenReturn(doctors);
+
+        String view = homeClass.getPatient(model, patientId);
+
+        verify(model).addAttribute("patient", patient);
+        verify(model).addAttribute("doctors", doctors);
+        assertEquals("showPatientForm", view);
+    }
+
+
 }

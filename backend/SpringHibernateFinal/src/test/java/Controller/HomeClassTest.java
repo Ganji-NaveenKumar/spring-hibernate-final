@@ -13,13 +13,13 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
 import org.mockito.junit.MockitoJUnitRunner;
+
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.validation.Valid;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -29,7 +29,6 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class HomeClassTest {
-
     @Mock
     private DoctorServices doctorServices;
 
@@ -47,7 +46,6 @@ public class HomeClassTest {
 
     @InjectMocks
     private HomeClass homeClass;
-
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -190,6 +188,21 @@ public class HomeClassTest {
         String view =homeClass.addPatient(patient, bindingResult, model);
         verify(patientServices).savePatient(patient);
         assertEquals("redirect:/patients", view);
+    }
+
+    @Test
+    public void testAddPatient_HasErrors() {
+
+        Patient patient = new Patient();
+        Doctor doctor = new Doctor();
+        doctor.setId(1);
+        patient.setDoctor(doctor);
+
+        when(bindingResult.hasErrors()).thenReturn(true);
+
+        String view = homeClass.addPatient(patient, bindingResult, model);
+        verify(patientServices, never()).savePatient(patient);
+        assertEquals("showPatientForm", view);
     }
 
 
@@ -347,10 +360,9 @@ public class HomeClassTest {
     }
 
     @Test
-    public void testUpdatePayment_Failure() {
+    public void testUpdatePaymentPost_Failure() {
         Payment payment = new Payment();
-
-        when(bindingResult.hasErrors()).thenReturn(true);
+        when(bindingResult.hasErrors()).thenReturn(true); // Mock validation errors
 
         String view = homeClass.updatePaymentPost(payment, bindingResult);
 

@@ -19,6 +19,7 @@ import javax.validation.Valid;
 import  java.util.*;
 
 @Controller
+
 public class HomeClass {
     @Autowired
     private DoctorServices doctorServices;
@@ -103,6 +104,9 @@ public class HomeClass {
 
     @PostMapping("/savePatient")
     public String addPatient(@Valid @ModelAttribute("patient") Patient patient, BindingResult result,Model model){
+        if(result.hasErrors()){
+            return "showPatientForm";
+        }
         int intId = patient.getDoctor().getId();
         Doctor doctor = doctorServices.getDoctor(intId);
         patient.setDoctor(doctor);
@@ -170,6 +174,9 @@ public class HomeClass {
 
     @PostMapping("/updatePayment")
     public  String updatePaymentPost(@Valid @ModelAttribute("payment") Payment payment, BindingResult result){
+        if (result.hasErrors()) {
+            return "showPaymentUpdateForm";
+        }
         paymentServices.savePayment(payment);
         return "redirect:/payments";
     }

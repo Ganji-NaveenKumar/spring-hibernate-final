@@ -1,4 +1,4 @@
-package Naveen.DAO;
+package Naveen.dao;
 
 import Naveen.entity.Payment;
 

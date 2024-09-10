@@ -1,9 +1,7 @@
 package Naveen.service;
 
-import Naveen.DAO.DAODoctor;
-import Naveen.DAO.DAOPatient;
+import Naveen.dao.DAODoctor;
 import Naveen.entity.Doctor;
-import Naveen.entity.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

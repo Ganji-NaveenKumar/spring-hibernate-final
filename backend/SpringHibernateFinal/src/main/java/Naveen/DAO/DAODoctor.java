@@ -1,7 +1,6 @@
-package Naveen.DAO;
+package Naveen.dao;
 
 import Naveen.entity.Doctor;
-import Naveen.entity.Patient;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package Naveen.service;
 
-import Naveen.DAO.DAOPayment;
+import Naveen.dao.DAOPayment;
 import Naveen.entity.Payment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

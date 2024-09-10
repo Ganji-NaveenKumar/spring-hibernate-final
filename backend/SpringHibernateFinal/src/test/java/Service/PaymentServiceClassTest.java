@@ -1,6 +1,6 @@
 package Service;
 
-import Naveen.DAO.DAOPayment;
+import Naveen.dao.DAOPayment;
 import Naveen.entity.Payment;
 import Naveen.service.PaymentServiceClass;
 
@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
